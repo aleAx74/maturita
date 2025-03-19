@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Login from './Pages/Login/Login';
 import PrivateRoute from './PrivateRoute';
 import Home from './Pages/Home';
-import Register from './Pages/Login/Register.jsx';
+import Register from './Pages/Login/Register';
 import Navbar from './Components/NavBar/Navbar';
 import DocumentsPage from './Pages/File/DocumentsPage';
 import PdfPreviewPage from './Pages/File/PdfPreviewPage'
