@@ -21,7 +21,7 @@ app.use(cors(corsOption));
 app.use(express.json());
 
 
-const token = process.env.API_KEY;
+const token = "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";
 
 export async function main(url, content) {
     const client = ModelClient(
