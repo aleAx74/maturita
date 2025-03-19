@@ -1,0 +1,156 @@
+.ai-page {
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .ai-page h1 {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+  }
+  
+  .ai-page p {
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    margin-bottom: 2rem;
+  }
+  
+  .ai-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .ai-form input {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 0.5rem;
+    outline: none;
+  }
+  
+  .ai-form button {
+    padding: 0.8rem 1.5rem;
+    background-color: #4f46e5;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .ai-form button:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
+  
+  .ai-form button:hover:not(:disabled) {
+    background-color: #4338ca;
+  }
+  
+  .error-message {
+    color: #ef4444;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .documents-list {
+    margin-top: 2rem;
+  }
+  
+  .document-item {
+    background-color: #f8f9fa;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    text-align: left;
+  }
+  
+  .document-item h3 {
+    font-size: 1.25rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .document-item p {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-bottom: 0.5rem;
+  }
+  
+  .document-item a {
+    color: #4f46e5;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .document-item a:hover {
+    text-decoration: underline;
+  }
+
+  .materia-group {
+    background: #f4f4f4;
+    border-left: 5px solid #007bff;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .materia-group h2 {
+    color: #007bff;
+    margin-bottom: 10px;
+  }
+  
+  .document-item {
+    background: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .document-item h3 {
+    margin: 0;
+  }
+  
+  .document-item a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .document-item a:hover {
+    text-decoration: underline;
+  }
+  .loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .spinner {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-left-color: #09f;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .loading-indicator p {
+    margin-top: 10px;
+    font-size: 1.1em;
+    color: #555;
+  }

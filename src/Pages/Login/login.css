@@ -1,0 +1,142 @@
+body {
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  background-color: #eee;
+  padding: 1rem;
+  overflow-y: hidden;
+}
+
+.form {
+  margin-top: -20vh;
+  background-color: #fff;
+  padding: 1rem;
+  max-width: 350px;
+  width: 100%;
+  border-radius: 0.5rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.form-title {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #000;
+  margin-bottom: 1.5rem;
+}
+
+.input-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+.input-container input {
+  background-color: #fff;
+  padding: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  width: 90%;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  outline: none;
+}
+
+.input-container input:focus {
+  border-color: #4f46e5; 
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1); 
+}
+
+.submit {
+  display: block;
+  padding: 0.75rem 1.25rem;
+  background-color: #4f46e5;
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  width: 100%;
+  border: none;
+  border-radius: 0.5rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.submit:hover {
+  background-color: #4338ca;
+}
+
+.signup-link {
+  color: #6b7280;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.signup-link a {
+  color: #4f46e5;
+  text-decoration: none;
+}
+
+.signup-link a:hover {
+  text-decoration: underline;
+}
+
+.error-message {
+  color: #ef4444;
+  font-size: 0.875rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .form {
+    padding: 1.5rem;
+  }
+
+  .form-title {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+  }
+
+  .input-container input {
+    padding: 0.75rem;
+  }
+
+  .submit {
+    padding: 0.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .form {
+    padding: 1rem;
+  }
+
+  .form-title {
+    font-size: 1.1rem;
+    line-height: 1.5rem;
+  }
+
+  .input-container input {
+    padding: 0.5rem;
+  }
+
+  .submit {
+    padding: 0.5rem;
+  }
+
+  .signup-link {
+    font-size: 0.75rem;
+  }
+}
