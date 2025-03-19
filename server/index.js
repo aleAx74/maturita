@@ -24,6 +24,7 @@ app.use(express.json());
 const token = "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";
 
 export async function main(url, content) {
+    console.log(token);
     const client = ModelClient(
         "https://models.inference.ai.azure.com",
         new AzureKeyCredential(token)
