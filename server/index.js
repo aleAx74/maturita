@@ -13,7 +13,7 @@ dotenv.config();
 
 
 const corsOption = {
-    origin: ["http://localhost:5173"]
+    origin: ["https://maturita-1.onrender.com/"]
 };
 
 const app = express();
