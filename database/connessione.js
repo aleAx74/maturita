@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 
 
 const mongoURI = "mongodb+srv://mongo_alessandro:E1jkbfsFxY5f9b8n@cluster0.7gzgv.mongodb.net/maturita?retryWrites=true&w=majority&appName=Cluster0";
-mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(mongoURI)
   .then(() => {
     console.log("Database connesso...");
   })
