@@ -116,7 +116,7 @@ app.get('/api/scarica', (req, res) => {
         return res.status(400).send('File name is required');
     }
 
-    const filePath = `./filesPDF/${nome}.pdf`;
+    const filePath = path.join(__dirname, 'filesPDF', `${nome}.pdf`);
     console.log(filePath);
     if (!fs.existsSync(filePath)) {
         return res.status(404).send('File not found');
