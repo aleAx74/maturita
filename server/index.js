@@ -25,7 +25,6 @@ app.use(express.json());
 const token = process.env.TOKEN;
 
 export async function main(url, content) {
-    console.log(token);
     const client = ModelClient(
         "https://models.inference.ai.azure.com",
         new AzureKeyCredential(token)
@@ -170,7 +169,7 @@ app.post('/api/AI', async (req, res) => {
 
 
         const aiResponse = await main(url, content);
-        console.log("AI Response:", aiResponse);
+        console.log("\x1b[43mAI Response:", aiResponse, "\x1b[0m\n\n");
 
         let aiTags = aiResponse.split(',').map(tag => tag.trim().toLowerCase()); 
 
