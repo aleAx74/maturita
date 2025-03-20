@@ -21,7 +21,8 @@ app.use(cors(corsOption));
 app.use(express.json());
 
 
-const token = "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";
+
+const token = process.env.TOKEN;
 
 export async function main(url, content) {
     console.log(token);
