@@ -137,86 +137,46 @@ app.post('/api/AI', async (req, res) => {
     }
 
     try {
-        // Ottieni tutti i documenti dal database
-        const allDocuments = await filesModel.find({});
+        const files = await getAllFiles();
+        const allTags = files.reduce((tags, file) => {
+            if (file.tags && Array.isArray(file.tags)) {
+                tags.push(...file.tags);
+            }
+            return tags;
+        }, []);
         
-        // Crea una mappa strutturata di materie->argomenti->tags
-        const knowledgeBase = {};
-        allDocuments.forEach(doc => {
-            if (!knowledgeBase[doc.materia]) {
-                knowledgeBase[doc.materia] = {};
-            }
-            knowledgeBase[doc.materia][doc.nome] = doc.tags;
-        });
-
-        // Formatta la base di conoscenza per l'AI
-        let formattedKnowledge = "";
-        for (const [subject, topics] of Object.entries(knowledgeBase)) {
-            formattedKnowledge += `\n## ${subject.toUpperCase()} ##\n`;
-            for (const [topic, tags] of Object.entries(topics)) {
-                formattedKnowledge += `- ${topic}: ${tags.join(', ')}\n`;
-            }
-        }
+        const uniqueTags = [...new Set(allTags)];
 
         const content = `
-ANALISI INTERDISCIPLINARE DI IMMAGINE - LINEE GUIDA STRETTE:
+        Analizza l'immagine e trova i collegamenti interdisciplinari tra diverse materie, come se stessi preparando una tesina per la Maturità.
+        
+         - Identifica il tema principale e il suo contesto storico, letterario, scientifico o tecnologico.
+         - Trova connessioni tra diverse materie (Storia, Italiano, sistemi e reti, GPOI, Informatica, TPSI).
+         - Se è un personaggio storico o uno scrittore, indicane il nome e il periodo letterario, collega eventi, ideologie e movimenti culturali.
+         - Se è un'opera letteraria, collega il contesto storico, movimenti filosofici e concetti moderni.
+         - Se ci sono concetti chiave associabili all'immagine (es. "verismo", "progresso", "positivismo", "decadentismo", "estetismo", "futurismo", "modernismo").
+         - Se raffigura un oggetto, descrivilo con parole chiave.
+         - Se riguarda un concetto informatico o tecnologico (es. "DMZ", "firewall", "intelligenza artificiale", "cloud computing"), indica il termine specifico.
+         - Se rappresenta una località geografica o un concetto militare, identificane il nome.
+         - Rispondi solo con tag strettamente pertinenti all'immagine. Se è un personaggio, indica solo il suo periodo letterario e i movimenti culturali a cui è associato.
+         - Se l'immagine mostra uno scrittore, non aggiungere argomenti tecnologici, economici o militari a meno che non siano direttamente collegati.
+         - Non aggiungere termini come "modernismo", "positivismo", "ICT" o "sicurezza informatica" se non strettamente pertinenti.
+         - Evita di fare inferenze speculative; concentrati solo su ciò che è visibile e noto.
 
-1. IDENTIFICAZIONE PRIMARIA:
-- Analizza l'immagine e identifica UN SOLO tema principale (persona, oggetto, concetto, evento)
-- Determina il contesto preciso: storico, letterario, scientifico o tecnologico
+        
+         Rispondi solo con una lista di tag separati da virgole. Ecco alcuni esempi di tag già esistenti nel database: ${uniqueTags.join(', ')}.
+         `;
 
-2. CONNESSIONI INTERDISCIPLINARI (SOLO SE DIRETTAMENTE PERTINENTI):
-- Materie da considerare: Storia, Italiano, Sistemi e Reti, GPOI, TPSI
-- Per personaggi/opere: nome + periodo/movimento + collegamenti storici/filosofici
-- Per concetti tecnologici: termine specifico + applicazioni pratiche
-- Per eventi storici: cause + conseguenze + impatto tecnologico/culturale
-
-3. REGOLE STRETTE PER I TAG:
-- Massima pertinenza: NO a tag generici ("progresso", "tecnologia") senza legame diretto
-- Personaggi: solo periodo letterario + movimenti culturali associati
-- Opere: solo contesto storico + movimenti filosofici collegati
-- Tecnologia: solo termini specifici (es. "firewall", non "sicurezza informatica")
-- NO a inferenze speculative: solo ciò che è visibile/noto storicamente
-
-4. BASE DI CONOSCENZA DISPONIBILE (USARE SOLO QUESTI TAG):
-${formattedKnowledge}
-
-5. FORMATTO DI RISPOSTA:
-- Elenco di tag esatti presenti nel database
-- Separati da virgola
-- Solo minuscole
-- Nessun commento aggiuntivo
-
-ESEMPI CORRETTI:
-- Immagine di Verga: "verismo, realismo, giovanni verga"
-- Immagine di firewall: "firewall, dmz, sicurezza delle reti"
-- Immagine Prima Guerra Mondiale: "prima guerra mondiale, trincea, sistema delle alleanze, comunicazioni"
-`;
 
         const aiResponse = await main(url, content);
         console.log("\x1b[43mAI Response:", aiResponse, "\x1b[0m\n\n");
 
-        // Pulizia e validazione della risposta
-        let aiTags = aiResponse.toLowerCase()
-            .split(',')
-            .map(tag => tag.trim())
-            .filter(tag => {
-                // Verifica che il tag esista nel database
-                for (const subject of Object.values(knowledgeBase)) {
-                    for (const tags of Object.values(subject)) {
-                        if (tags.includes(tag)) return true;
-                    }
-                }
-                return false;
-            });
+        let aiTags = aiResponse.split(',').map(tag => tag.trim().toLowerCase()); 
 
         const query = { tags: { $in: aiTags } };
         const filesWithTags = await filesModel.find(query);
 
-        res.json({ 
-            files: filesWithTags,
-            suggestedTags: aiTags 
-        });
+        res.json({ files: filesWithTags });
     } catch (error) {
         console.error("Errore durante l'elaborazione AI:", error);
         res.status(500).json({ error: "Internal server error" });
